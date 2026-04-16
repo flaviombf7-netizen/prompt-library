@@ -62,6 +62,18 @@ Classifique cada risco por probabilidade e impacto
 (alto/médio/baixo)
 Sugira uma mitigação possível para cada risco
 
+Ao final, adicione:
+**Lacunas desta análise:** liste o que você não conseguiu
+responder com confiança e que exigiria pesquisa primária
+ou fontes especializadas.
+
+**Próximos passos recomendados:** com base em tudo que foi
+analisado, liste de 3 a 5 ações concretas e priorizadas que
+o empreendedor deveria executar nas próximas 4 semanas para
+avançar na validação. Ordene por menor custo e menor risco
+primeiro. Para cada ação, indique o que ela vai confirmar
+ou refutar.
+
 ## Exemplo de uso
 - Segmento: importação de produtos alimentares europeus para
   mercados autônomos em cidades médias do Sul e Sudeste do Brasil
