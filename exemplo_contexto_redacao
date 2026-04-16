@@ -1,0 +1,309 @@
+# Pré-escrita da Introdução — TCC Flávio Marcos Batista Filho
+
+**Tema do trabalho:** Projetos de fábricas compartilhadas para o desenvolvimento regional sustentável.
+
+**Pergunta de pesquisa:** Quais são os requisitos para projetar sistemas de manufatura compartilhada?
+
+**Objetivo geral:** Identificar e analisar criticamente os requisitos de projetos para sistemas de manufatura compartilhada, a partir do confronto entre as prescrições da literatura e a realidade operacional de uma instalação em estágio inicial.
+
+**Caso empírico:** Laboratório-Fábrica do Parque de Bioeconomia e Inovação da Amazônia, Belém-PA (operado pela Fundação CERTI, mantido pelo Governo do Pará).
+
+---
+
+## Contexto para continuidade do trabalho
+
+Esta pré-escrita é o resultado de um processo iterativo com o orientador (Prof. Daniel) que definiu os seguintes eixos:
+
+1. **Eixo central da introdução:** desenvolvimento regional sustentável e industrialização inclusiva, ancorados explicitamente nos ODS 8 e 9 da Agenda 2030 da ONU. Os ODS voltam ao trabalho após terem sido removidos em versão anterior — agora entram como estrutura argumentativa (compromisso global que define o problema) e não como lista decorativa de metas a atingir.
+
+2. **O que foi abandonado:** o recorte teórico de "manufatura de processos" foi removido da introdução e deverá ser revisitado no referencial teórico. O foco setorial em "alimentos e bebidas" também sai da introdução — fica restrito às delimitações e ao estudo de caso.
+
+3. **Estrutura de argumentos pedida pelo orientador:** afirmação → fundamento → evidência (→ ressalvas, se necessário). Padrão replicado dos TCCs anteriores do Prof. Daniel (Lucas, Jaqueline, Mariana).
+
+4. **Limite de extensão:** máximo ideal de 3 páginas para a introdução (item 1), excluindo as subseções 1.1 a 1.4.
+
+5. **Estilo observado nos TCCs de referência:** introdução em prosa corrida sem subseções, abertura com dados que estabeleçam relevância, conclusão com frase de transição do tipo "Perante o exposto, esta pesquisa se localiza no tema de X. Na sequência, serão apresentados o objeto e problema de pesquisa, os objetivos e a justificativa."
+
+6. **Regras de escrita consolidadas:**
+   - Português brasileiro formal, normas ABNT.
+   - Citações no formato Autor (Ano) integradas ao texto ou (Autor, Ano) no fim de frase.
+   - Não usar travessão "—" (é um marcador de IA identificado pelo orientador).
+   - Não inventar citações nem atribuir argumentos a autores fora do corpus de 27 artigos listado no Knowledge Base.
+   - Parágrafos com ideia central clara, desenvolvimento e conexão com o seguinte.
+   - Nunca reproduzir trechos literais longos — parafrasear e sintetizar.
+
+---
+
+## 1. INTRODUÇÃO — cadeia argumentativa
+
+### Passo 1 — O horizonte dos ODS e a agenda de industrialização inclusiva e sustentável
+
+**Argumento central:** A Agenda 2030 da ONU estabelece compromissos globais que situam a industrialização como vetor de desenvolvimento socioeconômico territorialmente equilibrado.
+
+**Pontos a desenvolver:**
+- Apresentar o ODS 9 (Construir infraestruturas resilientes, promover a industrialização inclusiva e sustentável e fomentar a inovação) e o ODS 8 (Promover o crescimento econômico sustentado, inclusivo e sustentável, emprego pleno e produtivo e trabalho decente).
+- Destacar metas específicas do ODS 9:
+  - **9.1** desenvolvimento de infraestrutura regional com acesso equitativo e a preços acessíveis.
+  - **9.2** aumento da participação da indústria no PIB e no emprego, particularmente em países menos desenvolvidos.
+  - **9.3** ampliação do acesso das pequenas indústrias a serviços financeiros e integração em cadeias de valor.
+  - **9.4** modernização da infraestrutura e reabilitação das indústrias para torná-las sustentáveis.
+- Destacar que esses compromissos posicionam a industrialização não como fim em si, mas como meio para desenvolvimento territorialmente equilibrado.
+
+**Fontes previstas:** documento oficial da Agenda 2030 (ONU), IPEA ou observatório brasileiro dos ODS para versão traduzida/contextualizada.
+
+---
+
+### Passo 2 — O descompasso entre as metas e a realidade de regiões periféricas
+
+**Argumento central:** Apesar dos compromissos da Agenda 2030, persistem descompassos regionais significativos, nos quais a ausência de infraestrutura industrial impede agregação de valor local, gerando perda de renda, evasão populacional e concentração de oportunidades em polos consolidados.
+
+**Pontos a desenvolver:**
+- Afirmar o descompasso: industrialização desigual entre regiões, persistência de territórios com baixa participação industrial no PIB local.
+- Fundamentar com um mecanismo econômico: em regiões produtoras de bens primários, a ausência de infraestrutura de processamento faz com que a matéria-prima saia bruta e retorne processada, com o excedente de valor capturado em outros territórios.
+- Trazer evidências (ver seção de "Dados a buscar" abaixo). Os exemplos de Pará → Blumenau e cadeias amazônicas podem entrar como ilustração, mas não são obrigatórios — se houver dados nacionais mais gerais sobre desigualdade regional industrial, esses são preferíveis.
+
+**Ressalva orientadora:** evitar concentrar todos os dados regionais apenas em alimentos ou apenas no Pará. O argumento é sobre desigualdade industrial regional em geral, e a Amazônia entra depois (passo 5) como o caso concreto.
+
+**Fontes previstas:** IBGE (Censo 2022 para fluxos migratórios), IPEA (indicadores regionais de industrialização), CNI ou Banco da Amazônia (dados de cadeias produtivas regionais), possivelmente WRI Brasil.
+
+---
+
+### Passo 3 — O papel do Estado em criar condições para a industrialização
+
+**Argumento central:** Em territórios onde o investimento privado não encontra condições de retorno, o desenvolvimento industrial depende da ação estatal como provedora de infraestrutura e absorvedora de risco inicial.
+
+**Pontos a desenvolver:**
+- Mazzucato (2011) como fundamentação: o Estado não apenas corrige falhas de mercado, mas cria mercados ao assumir o papel de principal investidor nas fases mais arriscadas.
+- Conectar especificamente à provisão de infraestrutura e ativos estratégicos (não apenas P&D), que é o que vai importar para fábricas compartilhadas.
+- Justificar por que esse papel é especialmente relevante em setores intensivos em ativos fixos e com incerteza tecnológica.
+
+**Fontes previstas:** Mazzucato (2011). Pode ser complementada com referências brasileiras sobre política industrial (se surgir necessidade).
+
+---
+
+### Passo 4 — Fábricas compartilhadas como alternativa aderente aos ODS
+
+**Argumento central:** Entre os modelos de infraestrutura pública produtiva, as fábricas compartilhadas, operacionalizadas sob a lógica Manufacturing-as-a-Service (MaaS), oferecem um modelo que endereça simultaneamente várias metas dos ODS 8 e 9 ao permitir que múltiplos empreendedores acessem recursos que individualmente seriam inviáveis.
+
+**Pontos a desenvolver:**
+- Definição conceitual de MaaS e de fábricas compartilhadas (shared factories). Remeter a Yu et al. (2020), Jiang e Li (2020), Beducci et al. (2026).
+- Mostrar a lógica de conversão de CAPEX em OPEX (pay-per-use) — autores do corpus: Yu et al. (2020), Bulut et al. (2021).
+- Mostrar aderência explícita aos ODS: o modelo viabiliza industrialização inclusiva (ODS 9.2), acesso equitativo a infraestrutura (ODS 9.1), integração de pequenas indústrias em cadeias de valor (ODS 9.3), e uso mais eficiente de recursos (ODS 9.4). Essa conexão já é feita pela própria literatura do corpus (Boar, Bastida e Marimon, 2020; Oyetunji et al., 2025; Baca-Neglia et al., 2025).
+- Se couber, mencionar brevemente um exemplo internacional: Kozak e Hartridge (2000) sobre shared facilities em comunidades dependentes de recursos naturais na Colúmbia Britânica. Isso reforça que a lógica já foi testada em contextos análogos.
+
+**Fontes previstas (todas já no corpus):** Yu et al. (2020), Jiang e Li (2020), Beducci et al. (2026), Bulut et al. (2021), Boar, Bastida e Marimon (2020), Oyetunji et al. (2025), Baca-Neglia et al. (2025), Kozak e Hartridge (2000).
+
+---
+
+### Passo 5 — O caso brasileiro: Parque de Bioeconomia e Inovação da Amazônia
+
+**Argumento central:** No Brasil, essa lógica já começa a ser materializada em iniciativas de política pública que combinam infraestrutura compartilhada, propósito de desenvolvimento regional e articulação público-privada.
+
+**Pontos a desenvolver:**
+- Apresentar o Parque de Bioeconomia e Inovação da Amazônia, em Belém (PA), inaugurado em outubro de 2025.
+- Caracterizar brevemente: investimento público-privado (~R$ 300 milhões), parceria Governo do Pará, Vale, Natura, Ambipar e Fundo Vale, ocupação de cerca de 6 mil m² nos Armazéns 5 e 6 do Porto Futuro II.
+- Destacar que o Laboratório-Fábrica, componente do Parque, opera como planta-piloto compartilhada para processamento de insumos da biodiversidade amazônica, atendendo mais de 300 negócios locais.
+- Mencionar que é exemplo concreto de como a industrialização inclusiva pode ocorrer em regiões produtoras de bens primários.
+
+**Fontes previstas:** Agência Pará (2025), EXAME (2025), G1 Pará (2025). Possivelmente Fundação CERTI (material institucional) se disponível.
+
+---
+
+### Passo 6 — Localização do tema e transição
+
+**Texto previsto (ajustar na redação):** "Perante o exposto, esta pesquisa se localiza no tema de projetos de fábricas compartilhadas para o desenvolvimento regional sustentável. Na sequência, serão apresentados o objeto e problema de pesquisa, os objetivos e a justificativa do presente trabalho."
+
+---
+
+## 1.1 OBJETO E PROBLEMA DE PESQUISA
+
+**Objeto:** requisitos de projeto de fábricas compartilhadas.
+
+**Problema:** lacunas da literatura mapeadas no Quadro 3 do referencial teórico, apresentadas de forma sintética e conectadas ao objeto.
+
+**Estrutura argumentativa (seguir padrão observado em Lucas e Jaqueline):**
+
+1. **Parágrafo introdutório do objeto:** situar que projetar uma fábrica compartilhada envolve definir um conjunto de requisitos que articulam governança, infraestrutura, conformidade regulatória, operação e digitalização. Referir brevemente à necessidade de modelos de análise estruturados.
+
+2. **Parágrafos centrais — apresentação do problema por meio das lacunas:** apresentar as lacunas identificadas no Quadro 3 de forma articulada, organizando-as em torno de três ou quatro eixos (para não virar uma lista). Sugestão de agrupamento:
+   - **Governança e propósito:** literatura descreve modelos P2P many-to-many, não oferece diretrizes para operações one-to-many centralizadas com propósito de política pública e inclusão produtiva (lacuna do Bloco 1).
+   - **Conformidade regulatória:** literatura reconhece como barreira, mas não a trata como dimensão de maturidade; não há modelos de gestão regulatória para fábricas compartilhadas multicliente (lacuna do Bloco 3).
+   - **Digitalização progressiva:** arquiteturas de referência pressupõem digitalização avançada e redes distribuídas, sem roteiros de digitalização incremental para operações em estágio inicial (lacuna do Bloco 5).
+   - **Sustentabilidade de ecossistemas emergentes:** literatura é centrada em países industrializados, sem modelos para ecossistemas de bioeconomia ou regiões de fronteira produtiva com infraestrutura institucional frágil (lacuna do Bloco 6).
+
+3. **Parágrafo de fechamento com a pergunta de pesquisa:** "Diante do exposto, esta pesquisa é norteada pela seguinte questão: quais são os requisitos para projetar sistemas de manufatura compartilhada?"
+
+**Ponto em aberto — Design Patterns e CIMO:**
+A decisão sobre utilizar a literatura de Design Patterns e a lógica CIMO (Denyer, Tranfield e Van Aken, 2008) como base epistemológica para o modelo de análise ainda depende de leitura adicional. A hipótese em avaliação é que a coluna "Bloco" do modelo de análise (Quadro 2 do referencial) possa equivaler à coluna "Contexto" da lógica CIMO, o que permitiria ancorar o modelo em uma literatura já consolidada. Se essa adequação for confirmada, a pergunta de pesquisa e os objetivos poderão ser reformulados para incluir a nomenclatura de design patterns. Por ora, o texto usa "requisitos de projeto" de forma neutra.
+
+---
+
+## 1.2 OBJETIVOS
+
+### 1.2.1 Objetivo geral
+
+Identificar e analisar criticamente os requisitos de projetos para sistemas de manufatura compartilhada, a partir do confronto entre as prescrições da literatura e a realidade operacional de uma instalação em estágio inicial.
+
+### 1.2.2 Objetivos específicos
+
+**Status:** esboçados por Flávio, pendentes de validação com o orientador.
+
+a) Analisar criticamente as alternativas de projeto de fábricas compartilhadas presentes na literatura e consolidar um modelo de análise de requisitos para implementação de fábricas compartilhadas.
+
+b) Identificar os requisitos operacionais, regulatórios e de governança aplicáveis ao projeto de uma fábrica compartilhada, por meio de estudo de caso.
+
+c) Confrontar os requisitos identificados com o modelo de análise derivado da literatura, evidenciando lacunas e adaptações necessárias para o contexto estudado.
+
+---
+
+## 1.3 JUSTIFICATIVA
+
+**Pergunta condutora:** Por que esta pesquisa é importante?
+
+### Eixo acadêmico
+
+**Argumento central:** a manufatura compartilhada é um campo emergente, predominantemente centrado em manufatura discreta e digitalização avançada, e a literatura não oferece modelos de análise para contextos de baixa maturidade com propósito de desenvolvimento regional.
+
+**Pontos a desenvolver:**
+- Demonstrar a lacuna com base na revisão de literatura (27 artigos, 1990-2026).
+- Posicionar a contribuição acadêmica do trabalho: proposição de um modelo de análise adaptado (articulação entre a lógica de progressão de Black, 2003, e as dimensões de maturidade de Beducci et al., 2026), incorporando uma dimensão regulatória ausente nos modelos existentes.
+- Citar Baca-Neglia et al. (2025) sobre a fragmentação conceitual entre Indústria 4.0 e ODS e a sub-representação da dimensão social, como fundamento para a relevância acadêmica de um trabalho que articule manufatura compartilhada e desenvolvimento regional.
+
+### Eixo gerencial/prático
+
+**Argumento central:** gestores e formuladores de política pública que pretendem implementar fábricas compartilhadas como instrumento de desenvolvimento regional não dispõem hoje de orientações de projeto consolidadas.
+
+**Pontos a desenvolver:**
+- A lógica de fábrica compartilhada permite converter CAPEX proibitivo em OPEX acessível, viabilizando o acesso de empresas nascentes a infraestrutura de processamento (Yu et al., 2020; Bulut et al., 2021).
+- O estudo de caso oferece evidências empíricas de uma instalação real, em estágio inicial de operação, com elementos replicáveis para outras iniciativas similares.
+
+### Eixo social e regional (ponto destacado pelo orientador)
+
+**Argumento central:** o modelo estudado tem propósito explícito de potencializar o desenvolvimento regional sustentável, não de gerar lucros, o que o diferencia do que é descrito pela maior parte da literatura (centrada em empreendimentos privados com lógica de eficiência econômica).
+
+**Pontos a desenvolver:**
+- A fábrica do Parque de Bioeconomia nasceu com o objetivo explícito de fortalecer cadeias produtivas regionais e promover a inclusão produtiva de pequenos produtores da bioeconomia amazônica.
+- Conectar ao argumento dos ODS feito na introdução: este é um caso em que a manufatura compartilhada materializa diretamente o tipo de industrialização inclusiva preconizada pela Agenda 2030.
+- O modelo pode contribuir para a inclusão produtiva de pequenos produtores, a agregação de valor a insumos regionais e o desenvolvimento econômico de regiões com ecossistemas produtivos emergentes.
+
+---
+
+## 1.4 DELIMITAÇÕES
+
+**Status:** não foi ajustada nesta iteração. A versão anterior permanece como base, com ajustes a fazer depois.
+
+**Pontos atuais (a validar):**
+- Estudo de caso único (Laboratório-Fábrica do Parque de Bioeconomia da Amazônia, Belém-PA).
+- Foco em linhas de processamento de insumos de origem vegetal (exclusão de proteínas animais).
+- Foco na infraestrutura voltada à indústria de alimentos e bebidas (embora o complexo inclua capacidade para cosméticos e químico-fármacos).
+- Análise da operação em estágio inicial (P&D e lotes experimentais), não abrangendo produção em massa ou contínua.
+- Sem implementação prática de melhorias; contribuição restrita à análise e identificação de requisitos.
+
+**Observação:** com a ampliação do escopo teórico para "sistemas de manufatura compartilhada" em geral, pode ser útil tornar explícito na delimitação que, embora o estudo de caso seja uma fábrica de alimentos e bebidas, a discussão dos requisitos parte de fontes aplicáveis a fábricas compartilhadas em diferentes setores.
+
+---
+
+## Modelo de caixas (para apresentação ao orientador)
+
+**Problema prático →** Regiões produtoras de bens primários não retêm valor industrial localmente, comprometendo o cumprimento dos compromissos de industrialização inclusiva e sustentável estabelecidos pelos ODS 8 e 9.
+
+**→ MOTIVA →**
+
+**Pergunta de pesquisa →** Quais são os requisitos para projetar sistemas de manufatura compartilhada?
+
+**→ DEFINE →**
+
+**Problema de pesquisa →** A literatura sobre manufatura compartilhada concentra-se em arranjos P2P, digitalização avançada e empreendimentos privados, sem oferecer modelos de análise integrados para sistemas centralizados com propósito de desenvolvimento regional em contextos de baixa maturidade digital.
+
+**→ ENCONTRA →**
+
+**Resposta de pesquisa →** Um modelo de análise com requisitos de projeto organizados em seis blocos hierárquicos (governança, infraestrutura, conformidade regulatória, operação, digitalização, ecossistema), confrontado com evidências empíricas de uma instalação em estágio inicial.
+
+**→ AJUDA A RESOLVER →**
+
+**Problema prático** (fecha o ciclo) → Os requisitos identificados orientam decisões de projeto e operação de fábricas compartilhadas como instrumento de industrialização inclusiva e desenvolvimento regional sustentável, oferecendo insumos para gestores, operadores e formuladores de política pública.
+
+---
+
+## Dados e referências a buscar
+
+### Passo 1 (ODS)
+
+- Documento oficial da Agenda 2030 da ONU, com textos das metas dos ODS 8 e 9.
+- Possível fonte complementar: IPEA ou Observatório Brasileiro dos ODS para contextualização brasileira.
+
+### Passo 2 (descompasso regional)
+
+Prioridade por dados nacionais, não apenas Pará ou alimentos:
+
+- **IBGE:** distribuição da participação industrial no PIB por região brasileira; migração inter-regional (Censo 2022).
+- **IPEA:** indicadores de desigualdade regional de industrialização, estudos sobre desenvolvimento regional.
+- **CNI:** dados sobre estrutura industrial por região.
+- **IBGE PIA (Pesquisa Industrial Anual):** concentração geográfica da indústria de transformação.
+- **Opcional, como ilustração (não obrigatório):** matéria NSC Total sobre migração Pará → Blumenau (buscar fonte primária no IBGE); dados WRI Brasil sobre cadeias produtivas amazônicas; Banco da Amazônia sobre bioeconomia regional.
+
+### Passo 3 (Mazzucato)
+
+- Mazzucato (2011) — capítulos sobre infraestrutura e ativos estratégicos (não apenas P&D).
+
+### Passo 4 (MaaS e fábricas compartilhadas)
+
+Todas as fontes já estão no corpus:
+- Yu et al. (2020)
+- Jiang e Li (2020)
+- Beducci et al. (2026)
+- Bulut et al. (2021)
+- Boar, Bastida e Marimon (2020)
+- Oyetunji et al. (2025)
+- Baca-Neglia et al. (2025)
+- Kozak e Hartridge (2000)
+
+### Passo 5 (Parque de Bioeconomia)
+
+- Agência Pará (2025)
+- EXAME (2025)
+- G1 Pará (2025)
+- Possível: material institucional Fundação CERTI ou Governo do Pará com números de impacto esperado.
+- Verificar se há publicações oficiais com dados atualizados (Parque foi inaugurado há cerca de seis meses).
+
+### Seção 1.3 (Justificativa, eixo acadêmico)
+
+- Baca-Neglia et al. (2025): fragmentação conceitual Indústria 4.0 e ODS.
+
+---
+
+## Orientações para a redação
+
+### Padrão do orientador (observado nos TCCs do Lucas, Jaqueline e Mariana)
+
+- Introdução em texto corrido, sem subseções internas.
+- Parágrafos bem construídos com tópico frasal, justificativas, conclusão e gancho para o próximo parágrafo (ver arquivo "Instruções para escrita").
+- Frases curtas. Conectores de citação como "Conforme", "Segundo", "De acordo com".
+- Estrutura de argumentos: afirmação, fundamento, evidência (e se necessário, ressalvas).
+- Transição clara no final da introdução para as subseções que virão.
+
+### Problemas a evitar (aprendizados do processo)
+
+- Não reintroduzir o recorte "manufatura de processos" na introdução.
+- Não concentrar dados regionais apenas em alimentos ou Pará — manter generalidade na exposição do problema e usar Amazônia como caso concreto no passo 5.
+- Os ODS entram como estrutura argumentativa, não como lista decorativa de metas.
+- Não usar travessão.
+- Claim anchoring: cada afirmação analítica precisa ter fonte atribuível.
+
+### Arquivos de referência no Knowledge Base
+
+- "TCC - Prof. Daniel e Lucas.pdf" (principal referência de estilo para a introdução — verificar especialmente a conexão entre parágrafos).
+- "TCC - Prof. Daniel e Jaqueline.pdf" e "TCC - Prof. Daniel e Mariana.pdf" (referências complementares).
+- "Referencia Teórico V1 - Flávio Marcos Batista Filho.docx" (referencial teórico completo, incluindo Quadro 2 e Quadro 3 usados em 1.1).
+- "Revisão de Literatura Completa - TCC.pdf" e "Obtenção Corpus de Análise - Matriz Síntese (Corpus) (1).pdf" (corpus de 27 artigos).
+- "Anotações de artigos (1).pdf" (insights e trechos dos artigos do corpus).
+- "Instruções para escrita.docx.pdf" (anotações sobre padrão de escrita acadêmica do orientador).
+- "Síntese de leitura.pdf" (resumo dos livros "Como ler livros" e "A arte da escrita científica").
+
+### Fluxo sugerido para o próximo chat
+
+1. Confirmar que o escopo da pré-escrita está claro.
+2. Buscar os dados pendentes (item "Dados e referências a buscar" acima).
+3. Redigir cada passo da introdução individualmente, validando antes de passar ao próximo.
+4. Após a introdução completa, avançar para 1.1, depois 1.2, 1.3 e 1.4.
+5. Manter o limite de 3 páginas para a introdução (item 1).
