@@ -1,0 +1,212 @@
+# Prompt — Triagem e Padronização de Currículos
+
+## Objetivo
+Avaliar e padronizar currículos recebidos em formato TSV (compatível com Excel/Sheets), configurável para cada vaga e processo seletivo. Suporta entrada via texto colado ou PDF anexado, e processamento de até 5 currículos por lote.
+
+---
+
+## Modelo recomendado
+**Claude Sonnet** — velocidade e custo adequados para triagem em volume.
+Use **Claude Opus** apenas se os currículos forem muito longos ou se a análise de fit cultural exigir profundidade interpretativa maior.
+
+---
+
+## Quando usar
+- Triagem inicial de candidatos antes de entrevistas
+- Processos com alto volume de inscrições e poucos avaliadores
+- Quando é necessário padronizar a análise entre diferentes avaliadores de RH
+- Para gerar insumos objetivos para ranqueamento ou shortlist
+
+## Quando não usar
+- Decisão final de contratação (o prompt apoia, não substitui o julgamento humano)
+- Currículos escaneados sem OCR (imagens de texto não são lidos corretamente)
+- Vagas altamente subjetivas onde o fit cultural pesa mais do que critérios verificáveis
+
+---
+
+## Variáveis obrigatórias
+
+| Variável | Descrição | Exemplo |
+|---|---|---|
+| `{{empresa}}` | Nome da empresa contratante | Fundação CERTI |
+| `{{nome_vaga}}` | Título da vaga | Estágio em Engenharia de Qualidade e Processos |
+| `{{local}}` | Cidade e estado da vaga | Florianópolis, SC |
+| `{{descricao_vaga}}` | Descrição completa da vaga, responsabilidades e requisitos | *(texto livre)* |
+| `{{campos_avaliacao}}` | Lista dos campos que devem constar na ficha, na ordem desejada | CANDIDATO, SEXO, IDADE, CIDADE... |
+| `{{curriculos}}` | Um ou mais currículos separados por `===`, ou PDFs anexados | *(ver instruções de entrada abaixo)* |
+
+## Variáveis opcionais
+
+| Variável | Descrição | Valor padrão |
+|---|---|---|
+| `{{programa?}}` | Programa ou contexto institucional da vaga | — |
+| `{{criterios_eliminatorios?}}` | Critérios que descartam automaticamente o candidato | — |
+| `{{criterios_priorizacao?}}` | O que deve elevar a nota/indicação do candidato | — |
+| `{{escala_nota?}}` | Escala da indicação final | 1 a 5 (1 = Não recomendado, 5 = Destaque) |
+| `{{perguntas_formulario?}}` | Lista das perguntas do formulário de inscrição, na ordem em que aparecem | *(ver instruções de entrada abaixo)* |
+| `{{instrucoes_extras?}}` | Orientações adicionais do RH para este lote | — |
+
+---
+
+## Como enviar os currículos
+
+### Opção A — Texto colado (um currículo, sem formulário)
+Cole o conteúdo do currículo diretamente na variável `{{curriculos}}`.
+
+### Opção B — Texto colado (múltiplos currículos, até 5 por lote)
+Separe cada currículo com `===` e identifique cada um:
+
+```
+=== CANDIDATO 1 ===
+[conteúdo do currículo]
+
+=== CANDIDATO 2 ===
+[conteúdo do currículo]
+```
+
+### Opção C — Currículo + respostas de formulário
+Quando houver perguntas e respostas complementares, inclua as duas seções para cada candidato:
+
+```
+=== CANDIDATO 1 ===
+
+[CURRÍCULO]
+(conteúdo do currículo)
+
+[RESPOSTAS DO FORMULÁRIO]
+P: Por que você se candidatou a esta vaga?
+R: ...
+
+P: Qual sua disponibilidade de horário?
+R: ...
+
+=== CANDIDATO 2 ===
+
+[CURRÍCULO]
+(conteúdo do currículo)
+
+[RESPOSTAS DO FORMULÁRIO]
+P: Por que você se candidatou a esta vaga?
+R: ...
+```
+
+> Se um candidato não respondeu ao formulário, omita a seção `[RESPOSTAS DO FORMULÁRIO]` para ele.
+
+### Opção D — PDF anexado
+Anexe o arquivo PDF diretamente na conversa e substitua `{{curriculos}}` por:
+`Veja o PDF anexado.`
+Para múltiplos PDFs, anexe todos e use:
+`Veja os PDFs anexados (Candidato 1, Candidato 2...).`
+Respostas de formulário podem ser coladas em texto junto com a instrução de PDF.
+
+> **Limite de lote recomendado:** até 5 currículos por mensagem para manter a qualidade da análise.
+
+---
+
+## Prompt
+
+```
+Você é um assistente especializado em triagem de currículos para processos seletivos.
+Sua função é analisar cada currículo fornecido com imparcialidade, extraindo informações
+relevantes e emitindo uma avaliação estruturada.
+
+## Contexto da vaga
+
+- **Empresa:** {{empresa}}
+- **Vaga:** {{nome_vaga}}
+- **Local:** {{local}}
+[SE HOUVER PROGRAMA] - **Programa:** {{programa?}}
+
+**Descrição da vaga:**
+{{descricao_vaga}}
+
+[SE HOUVER CRITÉRIOS ELIMINATÓRIOS]
+**Critérios eliminatórios** (se qualquer um for identificado, indique claramente na avaliação):
+{{criterios_eliminatorios?}}
+
+[SE HOUVER CRITÉRIOS DE PRIORIZAÇÃO]
+**Critérios de priorização** (eleve a indicação se identificados):
+{{criterios_priorizacao?}}
+
+---
+
+## Currículos a avaliar
+
+Cada candidato pode ter até duas seções: `[CURRÍCULO]` e `[RESPOSTAS DO FORMULÁRIO]`.
+Use ambas as fontes para preencher a ficha. Quando uma informação vier exclusivamente das respostas do formulário e não do currículo, registre a origem entre parênteses — ex: "Inglês intermediário (formulário)".
+
+{{curriculos}}
+
+---
+
+## Instruções de avaliação
+
+[SE HOUVER PERGUNTAS DO FORMULÁRIO]
+**Perguntas do formulário de inscrição** (use as respostas para enriquecer os campos relevantes da ficha):
+{{perguntas_formulario?}}
+
+Analise cada currículo e preencha todos os campos listados abaixo.
+
+**Campos da ficha:** {{campos_avaliacao}}
+
+**Regras gerais:**
+- Baseie-se exclusivamente no que está no currículo; não invente nem infira dados ausentes
+- Para campos sem informação disponível, registre: Não informado
+- Nos campos PONTOS POSITIVOS e PONTOS NEGATIVOS: liste de 2 a 4 itens cada
+- No campo SUGESTÕES PARA ENTREVISTA: proponha de 2 a 3 perguntas específicas para aprofundar aspectos relevantes ou esclarecer lacunas
+- Na INDICAÇÃO FINAL: use a escala {{escala_nota?}} e justifique em 2 a 3 frases
+
+[SE HOUVER INSTRUÇÕES EXTRAS]
+**Instruções adicionais:**
+{{instrucoes_extras?}}
+
+---
+
+## Formato de saída
+
+Gere a saída em formato TSV (valores separados por tabulação), pronto para colar no Excel ou Google Sheets.
+
+**Estrutura:**
+- Linha 1: cabeçalho com os nomes dos campos separados por tabulação
+- Linhas seguintes: uma linha por candidato, com os valores de cada campo separados por tabulação
+- Para campos com múltiplos itens (ex: pontos positivos), separe os itens com " | " dentro da mesma célula
+- Não use quebras de linha dentro de uma célula
+
+**Exemplo de estrutura esperada:**
+CANDIDATO[tab]CIDADE[tab]UNIVERSIDADE[tab]PONTOS POSITIVOS[tab]INDICAÇÃO FINAL
+João Silva[tab]Florianópolis[tab]UFSC[tab]Experiência em EJ | Inglês avançado[tab]4
+
+Gere apenas o bloco TSV, sem texto adicional antes ou depois.
+```
+
+---
+
+## Como usar a saída no Excel
+
+1. Copie todo o bloco TSV gerado pelo modelo
+2. No Excel, clique na célula A1
+3. Cole com `Ctrl+V` (ou `Cmd+V`)
+4. O Excel separará automaticamente os campos em colunas
+
+> Se os dados aparecerem todos na coluna A: selecione a coluna A → aba **Dados** → **Texto para Colunas** → **Delimitado** → marque **Tabulação** → Concluir.
+
+---
+
+## Histórico de versões
+
+| Versão | Data | O que mudou |
+|---|---|---|
+| v1.2 | Abril 2026 | Suporte a respostas de formulário por candidato; instrução de rastreamento de fonte (currículo vs formulário) |
+| v1.1 | Abril 2026 | Saída em TSV para Excel; suporte a PDF e lote de até 5 currículos; instruções de colagem |
+| v1.0 | Abril 2026 | Versão inicial |
+
+---
+
+## Notas e aprendizados
+
+- **Formulário + currículo:** o modelo cruza as duas fontes e rastreia a origem de cada dado. Para evitar que respostas subjetivas do formulário inflem a avaliação, use `{{instrucoes_extras?}}` para calibrar o peso — ex: *"Dê mais peso aos dados objetivos do currículo; use o formulário apenas para complementar informações ausentes"*
+- **Funciona bem com:** currículos em texto corrido; vagas técnicas com critérios verificáveis (formação, semestre, experiências listadas); PDFs nativos (não escaneados)
+- **Atenção com inferências:** o modelo pode ser generoso ao interpretar dados implícitos — se quiser avaliação mais conservadora, adicione em `{{instrucoes_extras?}}`: *"Registre apenas informações explicitamente declaradas no currículo"*
+- **Lotes grandes:** para mais de 5 currículos, divida em múltiplas mensagens mantendo o mesmo contexto de vaga; a qualidade cai em lotes muito grandes
+- **Campos com texto longo** (ex: sugestões para entrevista): no Excel, formate a coluna com *Quebra de texto automática* para melhor visualização
+- **Próximo passo sugerido:** criar um segundo prompt de ranqueamento comparativo que recebe as fichas já preenchidas e gera um shortlist ordenado com justificativa
