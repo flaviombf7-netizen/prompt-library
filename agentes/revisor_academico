@@ -1,0 +1,79 @@
+# Prompt — Revisor Crítico de Trabalho Acadêmico
+
+#Objetivo
+Revisar seções de trabalhos acadêmicos com rigor de parecerista, cobrindo fio argumentativo, redundância, clareza e validade das afirmações.
+
+## Modelo recomendado
+Claude Opus — A revisão exige raciocínio sobre coerência entre seções, calibração com materiais de referência armazenados no Knowledge do projeto (como TCCs do orientador ou outros capítulos do trabalho), e classificação estruturada de falhas argumentativas. Essas tarefas envolvem associações complexas que se beneficiam da capacidade analítica do Opus.
+
+#Quando usar
+Revisar seções de TCC, dissertação ou tese antes de enviar ao orientador
+Preparar o texto para defesa ou submissão a periódico
+Identificar inconsistências internas antes de revisar a redação
+Comparar a qualidade argumentativa com trabalhos de referência do orientador
+
+## Quando não usar
+Revisão de estilo, normas ABNT/APA ou formatação (use prompts específicos para isso)
+Textos ainda em fase de rascunho inicial — o prompt pressupõe um argumento já esboçado
+Seções totalmente isoladas sem contexto do trabalho (a análise de coerência perde força)
+Quando o objetivo for apenas correção gramatical
+
+## Variáveis obrigatórias
+VariávelDescriçãoExemplo{{secao}}Nome ou identificação da seção a ser revisada"Introdução — Etapa 1", "Referencial Teórico — Cap. 2"{{texto}}O texto completo da seçãoCole o trecho diretamente{{tema_do_trabalho}}Tema central do TCC em uma frase"Governança de dados em ecossistemas industriais"
+Variáveis opcionais
+VariávelDescriçãoValor padrão{{prioridade_orientador?}}Critério específico que o orientador enfatiza"Condução do leitor — o texto deve ser autoexplicativo"{{corpus_de_referencia?}}Fontes ou autores centrais do trabalho, para calibrar "autor desatualizado/incompleto"Não especificado{{instrucao_pos_feedback?}}O que fazer após a análise"Se eu concordar, reescreva o trecho; caso contrário, ajusto manualmente"
+
+# Prompt
+Você é um revisor crítico de trabalhos acadêmicos. Estou te enviando {{secao}} do meu TCC, cujo tema central é: {{tema_do_trabalho}}.
+
+Consulte os materiais de referência disponíveis no Knowledge deste projeto — especialmente os TCCs do orientador — para calibrar o nível de exigência e o estilo argumentativo esperado. Atue com o rigor de um examinador de banca ou de um parecerista de periódico científico.
+
+Sua análise deve cobrir quatro dimensões:
+
+---
+
+**1. Fio argumentativo**
+Avalie se o texto constrói um argumento progressivo e coeso do início ao fim. Identifique saltos lógicos entre parágrafos ou seções, e aponte onde o argumento perde força ou muda de direção sem aviso. O critério central é: **o leitor não deve precisar se esforçar para entender** — o texto deve conduzi-lo.
+{{#prioridade_orientador}}Critério adicional do orientador: {{prioridade_orientador}}{{/prioridade_orientador}}
+
+**2. Redundância**
+Identifique trechos, argumentos ou conceitos que aparecem mais de uma vez sem acréscimo analítico. Distinga entre:
+- **Redundância prejudicial**: enfraquece o texto, deve ser eliminada
+- **Retomada legítima**: conecta seções e pode ser mantida
+Aponte cada caso com localização precisa (parágrafo ou trecho).
+
+**3. Clareza e precisão das explicações**
+Identifique passagens em que: (a) o argumento é vago, (b) um conceito é usado sem estar suficientemente definido, (c) a conexão entre dois autores ou ideias não está explícita, ou (d) a explicação é mais longa do que o necessário para o que precisa comunicar.
+
+**4. Crítica às afirmações — categorias de *Como Ler Livros***
+Para cada afirmação problemática, classifique-a em uma das quatro categorias:
+- **Autor desinformado**: contradiz ou ignora evidências disponíveis no próprio corpus citado
+- **Autor desatualizado**: seria válida em outro contexto ou período, mas não se sustenta diante da literatura mais recente do corpus
+- **Autor ilógico**: a conclusão não decorre das premissas, há contradição interna ou falha estrutural no raciocínio
+- **Autor incompleto**: parcialmente verdadeira, mas ignora dimensões relevantes que o próprio corpus permitiria incorporar
+
+---
+
+**Formato da resposta:**
+Organize a análise em quatro blocos correspondentes às dimensões acima. Em cada bloco: cite o trecho ou parágrafo problemático, explique o problema e, quando possível, indique como corrigir ou fortalecer. Ao final, escreva um parágrafo de avaliação geral com os **três pontos mais fortes** e os **três pontos mais fracos** da seção.
+
+Seja direto e não poupe críticas — o objetivo é identificar fragilidades antes que o orientador ou a banca o façam.
+
+---
+
+*Texto a revisar:*
+
+{{texto}}
+
+---
+
+{{#instrucao_pos_feedback}}{{instrucao_pos_feedback}}{{/instrucao_pos_feedback}}
+## Histórico de versões
+VersãoDataO que mudouv1.02026-04-17Versão inicial, baseada no prompt de revisão da introdução do TCC
+## Notas e aprendizados
+
+Funciona bem com materiais de referência no Knowledge: o modelo calibra o nível de exigência de forma muito mais precisa quando tem TCCs do orientador para comparar.
+Use Opus, não Sonnet: a dimensão 4 (categorias do Como Ler Livros) exige raciocínio sobre coerência entre afirmação, premissas e corpus — Sonnet tende a ser superficial aqui.
+Combine com um prompt de reescrita focado: após a revisão, use um segundo prompt dedicado a reescrever os trechos sinalizados, em vez de pedir reescrita dentro deste mesmo prompt.
+Não funciona bem com rascunhos muito preliminares — se o argumento ainda não existe, a análise de fio argumentativo vira ruído.
+Atenção ao escopo: enviar seções longas de uma vez dilui a atenção do modelo. Para textos acima de ~1500 palavras, considere dividir em subseções.
