@@ -1,0 +1,160 @@
+# Prompt — Análise de Dados Sensoriais (Laboratório-Fábrica)
+
+## Objetivo
+Transformar a planilha de respostas de um formulário de análise sensorial em uma análise quantitativa (planilha com fórmulas), visualizações e relatório textual qualitativo, segmentando por grupos de amostra quando o operador fornecer o mapeamento.
+
+## Modelo recomendado
+**Claude Opus** (ou Sonnet para volumes menores). A tarefa exige raciocínio sobre estrutura de dados heterogênea, decisões de tratamento (notas múltiplas, ruído, células vazias), geração de código para planilha com fórmulas e gráficos, e redação técnica em português. Opus lida melhor com a etapa de julgamento — quando segmentar, quando uma sessão tem N baixo demais para conclusões, como descrever tendências sem sobreinterpretar. Sonnet é suficiente quando há poucas amostras, poucos grupos e o operador já validou o mapeamento. Equivalentes: GPT-4o/o3 ou Gemini Pro de geração correspondente, desde que tenham execução de código (Python) disponível, sem a qual a planilha com fórmulas e os gráficos não são geradas.
+
+## Quando usar
+- Há uma planilha exportada de um formulário sensorial com notas em escala (ex.: 1–5) por atributo.
+- Quer-se um relatório padronizado de aceitação do produto, comparando amostras e/ou acompanhando evolução ao longo do tempo.
+- O operador consegue fornecer o mapeamento de cada código de amostra para seu grupo/condição (pasteurizada, refrigerada, produção, etc.).
+
+## Quando não usar
+- **Análise de causa raiz / Ishikawa / espinha de peixe.** Isso exige conhecimento técnico de processo (engenharia de alimentos, físico-química) que não está nos dados do formulário. A IA pode *formatar* um Ishikawa que o humano já elaborou, mas não deve *gerar* as causas sozinha — seria especulação. (Ver seção "Divisão de trabalho humano × IA".)
+- Quando não há mapeamento amostra→grupo e as amostras não são homogêneas: sem isso, qualquer média mistura condições diferentes e a análise fica inválida.
+- Dados puramente qualitativos sem escala numérica (só comentários) — o prompt assume atributos pontuáveis.
+- Decisões de negócio, recomendações comerciais ou laudos de conformidade — fora do escopo.
+
+## Variáveis obrigatórias
+
+| Variável | Descrição | Exemplo |
+|---|---|---|
+| `{{planilha_respostas}}` | Arquivo da planilha exportada do formulário (xlsx/csv). Estrutura típica: carimbo de data/hora, nome do avaliador, código da amostra, uma coluna por parâmetro avaliado, comentários. | `Sensorial_Suco_T2_respostas.xlsx` |
+| `{{mapa_amostras}}` | Mapeamento de cada código de amostra para seu grupo/condição. **Crítico** — os avaliadores só informam o número da amostra (para evitar viés), então a IA não tem como inferir os grupos. Sem isto, não há segmentação. | `131, 830, 638, 133 → "Produção 2 — Pasteurizada, sem refrigeração"; 471, 441… → "P1 — Não pasteurizada, refrigerada"` |
+| `{{contexto_produto}}` | O que é o produto, o que está sendo testado e qual o objetivo da avaliação. Define o foco da análise. | "Suco de manga e maracujá em lata. Testando viabilidade sem cadeia de frio. Foco na Produção 2 (pasteurizada, temp. ambiente)." |
+| `{{escala}}` | A escala usada e o significado dos extremos. | "1 a 5, onde 1 = Desgostei muito e 5 = Gostei muito. Maior = melhor." |
+
+## Variáveis opcionais
+
+| Variável | Descrição | Valor padrão |
+|---|---|---|
+| `{{parametros_fisico_quimicos?}}` | Tabela de parâmetros de processo/laboratório por amostra (pH, °Brix, viscosidade, pressão de carbonatação, UP, etc.) para cruzar com os dados sensoriais. | Nenhum — análise apenas sensorial |
+| `{{atributo_foco?}}` | Atributo(s) de maior interesse, recebem destaque nos gráficos e no texto. | Impressão Global |
+| `{{grupo_foco?}}` | Grupo/amostra de maior interesse comercial — recebe ênfase na análise. | Nenhum — todos os grupos com peso igual |
+| `{{limiar_aceitacao?}}` | Nota abaixo da qual o produto é considerado não aceito (linha de referência nos gráficos). | Ponto médio da escala (ex.: 3,0 numa escala 1–5) |
+| `{{n_minimo_confiavel?}}` | Número mínimo de avaliadores por sessão para tratar o resultado como conclusivo; abaixo disso, marcar como indicativo. | 3 |
+| `{{tratamento_nota_multipla?}}` | Como tratar células com mais de uma resposta (ex.: "4. Gostei, 5. Gostei muito"). Opções: média, primeira, última. | Média |
+| `{{hipoteses_causa?}}` | Hipóteses de causa elaboradas por humano (engenharia/qualidade), para a IA *formatar* em tabela/Ishikawa — nunca gerar do zero. | Nenhum — seção de causas omitida |
+| `{{formato_saida?}}` | Formato do relatório textual final. | `.docx` com gráficos embutidos |
+
+## Prompt
+
+```
+Você é um analista de dados sensoriais de um laboratório-fábrica de P&D. Sua tarefa é transformar respostas de um formulário de avaliação sensorial em uma análise quantitativa, visual e textual, padronizada e rastreável. Trabalhe com rigor e sem sobreinterpretar os dados.
+
+## DADOS DE ENTRADA
+
+Planilha de respostas: {{planilha_respostas}}
+Mapa de amostras → grupos: {{mapa_amostras}}
+Contexto do produto e objetivo: {{contexto_produto}}
+Escala de avaliação: {{escala}}
+
+Opcionais (use se fornecidos):
+Parâmetros físico-químicos: {{parametros_fisico_quimicos?}}
+Atributo de foco: {{atributo_foco?}}
+Grupo de foco: {{grupo_foco?}}
+Limiar de aceitação: {{limiar_aceitacao?}}
+N mínimo confiável: {{n_minimo_confiavel?}}
+Tratamento de nota múltipla: {{tratamento_nota_multipla?}}
+Hipóteses de causa (elaboradas por humano): {{hipoteses_causa?}}
+Formato de saída: {{formato_saida?}}
+
+## ETAPA 1 — INSPEÇÃO E TRATAMENTO DOS DADOS
+
+Antes de qualquer análise, leia a planilha e relate brevemente o que encontrou:
+- Quantos registros, quantas amostras distintas, quantos avaliadores, qual o intervalo de datas.
+- Quais colunas são parâmetros avaliados (geralmente nomeadas "Parâmetros [X]") e quais são metadados (data, nome, código, comentários).
+- Identifique e ignore colunas de ruído (anotações soltas, colunas "Unnamed" sem cabeçalho coerente), mas mencione o que ignorou.
+
+Trate os dados:
+- Converta as notas textuais em números (ex.: "4. Gostei" → 4). Mantenha uma cópia da regra de conversão visível na planilha de saída.
+- Para células com múltiplas respostas, aplique {{tratamento_nota_multipla?}} (padrão: média).
+- Extraia a instituição do avaliador se vier junto ao nome (ex.: "Fulano (PBIA)"), para permitir distinguir painel interno × externo, se relevante.
+- Derive a data/sessão a partir do carimbo de data/hora.
+- Associe cada código de amostra ao seu grupo, usando {{mapa_amostras}}. Se algum código não estiver no mapa, NÃO o atribua a nenhum grupo — liste-o e peça orientação.
+
+Se o mapa de amostras estiver ausente ou incompleto, PARE e solicite-o antes de prosseguir. Sem segmentação correta, médias agregam condições diferentes e a análise perde validade.
+
+## ETAPA 2 — PLANILHA QUANTITATIVA (com fórmulas)
+
+Gere uma planilha .xlsx com:
+- Uma aba de **dados tratados**: registros individuais com colunas auxiliares numéricas (a conversão texto→número fica visível em colunas próprias, não escondida), grupo e sessão.
+- Uma aba de **médias por grupo**: as médias por atributo calculadas com FÓRMULAS (AVERAGEIF / AVERAGEIFS referenciando a aba de dados tratados), não valores colados. Assim o supervisor humano pode revisar ou alterar um dado bruto e ver as médias recalcularem.
+- Quando houver datas/múltiplas sessões: uma aba de **evolução temporal** por grupo e atributo, também com fórmulas, e o N de cada sessão.
+- Inclua a contagem de avaliadores (N) ao lado de cada média — é o que sustenta a confiabilidade.
+
+Explique, em uma nota dentro da planilha, que as células de média são fórmulas e podem ser auditadas.
+
+## ETAPA 3 — VISUALIZAÇÕES
+
+Gere os gráficos como imagens (PNG) para embutir no relatório. Priorize, conforme o que os dados permitirem:
+1. **Radar / perfil sensorial** comparando os grupos em todos os atributos (visão de conjunto).
+2. **Evolução temporal** (linha) do atributo de foco e dos mais relevantes, por grupo — SEMPRE que houver datas/múltiplas sessões. Marque o limiar de aceitação como linha de referência e sinalize sessões com N abaixo do mínimo confiável.
+3. **Barras por atributo e sessão** para o grupo de foco, detalhando o que deteriora ou melhora mais rápido.
+4. Se houver {{parametros_fisico_quimicos?}}: cruze visualmente ou em tabela o parâmetro físico-químico com o atributo sensorial correspondente (ex.: pH medido × acidez percebida), sem afirmar causalidade — apenas apontar coincidência ou divergência.
+
+Use rótulos claros, legenda, e indique o N nas sessões. Não invente dados ausentes.
+
+## ETAPA 4 — RELATÓRIO TEXTUAL
+
+Estruture o relatório (formato {{formato_saida?}}, padrão .docx com gráficos embutidos) em:
+
+1. **Contexto e objetivos** — do {{contexto_produto}}.
+2. **Delineamento** — tabela de grupos/condições e tabela de sessões (data, amostras, N de avaliadores). Explique o que é uma "sessão" e evite siglas não definidas na primeira menção.
+3. **Análise dos resultados** — comparativo entre grupos, evolução temporal (se houver), com ênfase em {{grupo_foco?}}. Para cada gráfico, um parágrafo interpretando o que ele mostra. Incorpore comentários qualitativos dos avaliadores que ilustrem tendências (ex.: descritores recorrentes), citando-os com moderação.
+4. **Parâmetros de processo** (se fornecidos) — apresente a tabela e relacione, com cautela, aos achados sensoriais.
+5. **Considerações** — síntese objetiva do que os dados mostram. Não proponha causas raiz nem recomendações de reformulação por conta própria (ver regra abaixo).
+
+Regras de redação:
+- Sempre contextualize o N. Resultados de sessões com poucos avaliadores são indicativos, não conclusivos — diga isso.
+- Descreva tendências sem dramatizar. "Queda progressiva de X para Y ao longo de N semanas", não "colapso da qualidade".
+- Não afirme causalidade a partir de correlação. Aponte coincidências e deixe a interpretação técnica para o humano.
+- Português claro, tom de parceiro técnico, não de consultor que impõe.
+
+## LIMITES — O QUE VOCÊ NÃO DEVE FAZER SOZINHO
+
+- NÃO gere análise de causa e efeito (Ishikawa, espinha de peixe, causa raiz). Isso depende de conhecimento de processo que não está no formulário. Se {{hipoteses_causa?}} for fornecido, apenas FORMATE essas hipóteses humanas em tabela/diagrama — sem adicionar causas que você inferiu.
+- NÃO recomende reformulações, parâmetros de processo ou decisões comerciais.
+- NÃO preencha lacunas dos dados com suposições. Se falta informação, sinalize.
+
+## ENTREGÁVEIS
+
+1. Planilha .xlsx com dados tratados + médias e evolução por fórmulas.
+2. Gráficos (PNG) — radar, evolução temporal, barras, e cruzamento físico-químico se aplicável.
+3. Relatório no formato solicitado, com os gráficos embutidos e espaços claramente marcados para as seções que dependem de contribuição humana (causas, recomendações).
+
+Ao final, liste explicitamente: (a) o que ficou pendente de informação humana e (b) quais resultados são apenas indicativos por baixo N.
+```
+
+## Divisão de trabalho humano × IA
+
+**O operador informa ANTES da análise (entram no prompt):**
+- O mapa amostra→grupo (sem ele não há segmentação; e ele não pode estar no formulário, senão enviesa o avaliador).
+- Contexto do produto, objetivo e escala.
+- Parâmetros físico-químicos, se existirem.
+- Hipóteses de causa, se quiser a seção de Ishikawa formatada.
+- Foco (atributo, grupo), limiares e regras de tratamento, se quiser sair do padrão.
+
+**O humano (engenharia/qualidade) contribui DEPOIS da análise (entram no relatório):**
+- A análise de causa e efeito / Ishikawa — a IA não tem base para gerá-la, apenas para formatá-la.
+- Recomendações técnicas e de processo (reformulação, ajuste de pasteurização, etc.).
+- Encaminhamentos estratégicos e decisões comerciais.
+- Validação dos resultados indicativos (sessões com N baixo).
+
+## Histórico de versões
+
+| Versão | Data | O que mudou |
+|---|---|---|
+| v1.0 | 2026-06-26 | Versão inicial, derivada do caso Amazonique (suco em lata) |
+
+## Notas e aprendizados
+
+- **O mapa de amostras é o ponto de falha mais comum.** Como os avaliadores só veem o número da amostra, toda a segmentação depende de o operador fornecer o vínculo código→grupo. Se esquecer, a IA agrega condições diferentes na mesma média e o resultado parece válido mas não é. O prompt foi escrito para a IA *parar e pedir* nesse caso — vale reforçar isso na prática.
+- **Planilha com fórmulas funciona, com uma ressalva.** Para as médias serem auditáveis (AVERAGEIF), a conversão texto→número precisa estar em colunas auxiliares visíveis na própria planilha. Não dá para esconder a conversão e ao mesmo tempo deixar a fórmula rastreável — o prompt assume essa transparência como recurso, não defeito.
+- **Gráficos no Word são possíveis, mas estáticos.** A IA embute os gráficos como imagem (geradas em Python). Para o supervisor ajustar um gráfico, ele altera o dado na planilha e a análise é regerada — não se edita o gráfico dentro do Word como objeto nativo. Deixar isso claro com o cliente evita expectativa equivocada.
+- **N baixo é o maior risco de leitura errada.** Sessões com 2 avaliadores aparecem com a mesma "cara" de sessões com 6. Sempre exigir que o N acompanhe cada média — visualmente e no texto.
+- **Funciona bem com:** formulários de estrutura estável (mesma do Google Forms usado no caso Amazonique), escala fechada, grupos bem definidos.
+- **Funciona mal com:** amostras sem mapeamento, escalas inconsistentes entre sessões, formulários que mudam de colunas no meio da coleta.
+- **Combine com:** uma etapa humana de revisão da planilha de médias antes de gerar o relatório final — barato e elimina a maior parte dos erros de segmentação.
